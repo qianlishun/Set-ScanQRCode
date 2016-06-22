@@ -116,6 +116,7 @@
     // 2.删除 layer
     [self.preView removeFromSuperview];
 
+    self.label.text = @"点我扫描";
     [sender removeFromSuperview];
 
 }
