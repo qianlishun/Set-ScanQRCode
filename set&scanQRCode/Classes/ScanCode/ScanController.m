@@ -10,16 +10,16 @@
 
 @interface  ScanController()<AVCaptureMetadataOutputObjectsDelegate>
 
-//1. 输入设备(用来获取外界信息)  摄像头, 麦克风, 键盘
+// 输入设备(用来获取外界信息)  摄像头, 麦克风, 键盘
 @property (nonatomic,strong) AVCaptureDeviceInput *input;
 
-//2. 输出设备 (将收集到的信息, 做解析, 来获取收到的内容)
+// 输出设备 (将收集到的信息, 做解析, 来获取收到的内容)
 @property (nonatomic,strong) AVCaptureMetadataOutput *output;
 
-//3. 会话session (用来连接输入和输出设备)
+// 会话session (用来连接输入和输出设备)
 @property (nonatomic,strong) AVCaptureSession *session;
 
-//4. 特殊的 layer(展示输入设备所采集的信息)
+// 特殊的 layer(展示输入设备所采集的信息)
 @property (nonatomic,strong) PreView *preView;
 
 @property (strong, nonatomic)  UILabel *label;
@@ -63,17 +63,17 @@
 }
 
 - (void)scanClick{
-    // 1.输入设备 (用来获取外界信息) 摄像头  麦克风 键盘
+    // 输入设备 
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     self.input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
 
-    // 2.输出设备 (将收集到的信息, 做解析 ,  来获取收到的内容)
+    // 输出设备 
     self.output = [AVCaptureMetadataOutput new];
 
-    // 3.会话 session 用来连接输入和输出设备
+    // 会话 session 
     self.session = [AVCaptureSession new];
 
-    // 会话扫描展示的大小
+    // 扫描展示的大小
     [self.session setSessionPreset:AVCaptureSessionPresetHigh];
 
     // 会话跟输入和输出设备关联
@@ -88,10 +88,10 @@
     // 指定输出设备的代理  用来接受返回的数据
     [self.output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
 
-    // 设置元数据类型  二维码 QRCode
+    // 设置源数据类型  二维码 QRCode
     [self.output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
 
-    // 4.特殊的 layer  (展示输入设备所采集的信息)
+    // 特殊的 layer
     self.preView = [[PreView alloc]initWithFrame:self.view.bounds];
     self.preView.session = self.session;
 
